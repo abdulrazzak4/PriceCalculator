@@ -1,0 +1,121 @@
+﻿@page "/Resources/Edit/{Id:int}"
+@using PriceCalculator.App.Model
+@using System.Text.Json.Nodes
+@inject HttpClient Http
+@inject NavigationManager navManager
+
+@if (resource != null)
+{
+    <p><em>Loading ....</em></p>
+}
+
+else
+{
+
+    <PageTitle>Edit Resource</PageTitle>
+    <h1 class="text-center mb-3">Edit Resource</h1>
+
+    <EditForm Model="@ResourceData" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-form-label">Name</label>
+                    <div class="col-md-8">
+                        <InputText class="form-control" @bind-Value="ResourceData.Name" />
+                        <ValidationMessage For="@(() => ResourceData.Name)" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-form-label">BasePrice</label>
+                    <div class="col-md-8">
+                        <InputNumber class="form-control" @bind-Value="ResourceData.BasePrice" />
+                        <ValidationMessage For="@(() => ResourceData.BasePrice)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-md-4 col-md-4 d-grid">
+                        <button type="submit" class="btn btn-primary">Save</button>
+
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <a class="btn btn-outline-primary" href="/Resources">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </EditForm>
+    
+    
+}
+@code {
+    [Parameter]
+    public int Id { set; get; }
+    public Resource? resource = null;
+    public ResourceDTO ResourceData { get; set; } = new ResourceDTO
+        {
+            Name = "",  // Provide initial value
+            BasePrice = 0  // Provide initial value
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadResourceData();
+    }
+
+    // Load existing resource data for editing
+    private async Task LoadResourceData()
+    {
+        try
+        {
+            var response = await Http.GetFromJsonAsync<ResourceDTO>($"https://localhost:7072/api/Resources/{Id}");
+            if (response != null)
+            {
+                ResourceData = response;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error loading resource: " + ex.Message);
+        }
+    }
+    private async Task HandleValidSubmit()
+    {
+        await SaveResource();
+
+        // Reset
+        ResourceData = new ResourceDTO()
+            {
+                Name = string.Empty,  // Initialize Name to avoid null reference
+                BasePrice = 0     // Default value
+            }; // Clears the form
+        Console.WriteLine("Form submitted successfully.");
+    }
+    // Save updated resource data
+    protected async Task SaveResource()
+    {
+        try
+        {
+            var response = await Http.PutAsJsonAsync($"https://localhost:7072/api/Resources/{Id}", ResourceData);
+            if (response.IsSuccessStatusCode)
+            {
+                // Redirect to the resource list page after successful update
+                navManager.NavigateTo("/Resources");
+            }
+            else
+            {
+                var strResponse = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("Json response: \n" + strResponse);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred while saving: " + ex.Message);
+        }
+    }
+}

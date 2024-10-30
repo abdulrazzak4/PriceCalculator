@@ -1,0 +1,47 @@
+﻿@page "/MSPTiers"
+@using PriceCalculator.App.Model
+
+@inject HttpClient Http
+
+<PageTitle>MSP Tier</PageTitle>
+<h1 class="text-center mb-3">List of MSP Tier</h1>
+<a class="btn btn-primary mb-3 " href="/MSPTiers/Create">New MSP Tier</a>
+
+
+@if (mSPTiers == null ){
+    <p><em>Loading ....</em></p>
+}else{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Percentage</th>
+                <th>IsActive</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mSPTier in mSPTiers)
+            {
+                <tr>
+                    <td>@mSPTier.Name</td>
+                    <td>@mSPTier.Percentage</td>
+                    <td>@mSPTier.IsActive</td>
+                    <td style="white-space:nowrap">
+                        <a class="btn btn-primary btn-sm" href="/MSPTiers/Edit/@mSPTier.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/MSPTiers/Delete/@mSPTier.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private List<MSPTier>? mSPTiers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch mSPTiers from the API
+        mSPTiers = await Http.GetFromJsonAsync<List<MSPTier>>("https://localhost:7072/api/MSPTiers");
+    }
+}

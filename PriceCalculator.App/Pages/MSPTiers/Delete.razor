@@ -1,0 +1,36 @@
+﻿@page "/MSPTiers/Delete/{Id:int}"
+@using PriceCalculator.App.Model
+@using System.Text.Json.Nodes
+@inject HttpClient Http
+@inject NavigationManager navManager
+
+<h1 class="mb-5">Delete</h1>
+<p>Are You Want To Delete MSPTier</p>
+<button class="btn btn-danger" @onclick="DeleteMSP">Delete</button>
+@code {
+    [Parameter]
+    public int Id { set; get; }
+    protected async Task DeleteMSP()
+    {
+        try
+        {
+            var response = await Http.DeleteAsync($"https://localhost:7072/api/MSPTiers/{Id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Redirect to the MSP Tiers list page after successful update
+                navManager.NavigateTo("/MSPTiers");
+            }
+            else
+            {
+                var strResponse = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("Json response: \n" + strResponse);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred while saving: " + ex.Message);
+        }
+    }
+
+}

@@ -1,0 +1,50 @@
+﻿@page "/Resources"
+@using PriceCalculator.App.Model
+@inject HttpClient Http
+
+
+
+<PageTitle>Resources</PageTitle>
+<h1 class="text-center mb-3">List of MSP Tier</h1>
+<a class="btn btn-primary mb-3 " href="/Resources/Create">New Resource</a>
+@if (resources == null)
+{
+    <p><em>Loading ....</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>BasePrice</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var resource in resources)
+            {
+                <tr>
+                    <td>@resource.Name</td>
+                    <td>@resource.BasePrice</td>
+                    <td style="white-space:nowrap">
+                        <a class="btn btn-primary btn-sm" href="/Resources/Edit/@resource.Id">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="/Resources/Delete/@resource.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private List<ResourceDTO> resources = new List<ResourceDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadResources();
+    }
+
+    private async Task LoadResources()
+    {
+        resources = await Http.GetFromJsonAsync<List<ResourceDTO>>("https://localhost:7072/api/Resources");
+    }
+}

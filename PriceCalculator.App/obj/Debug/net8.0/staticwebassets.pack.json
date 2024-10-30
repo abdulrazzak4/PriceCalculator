@@ -1,0 +1,65 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\obj\\Debug\\net8.0\\compressed\\kk8v0zeyk7.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\obj\\Debug\\net8.0\\scopedcss\\bundle\\PriceCalculator.App.styles.css",
+      "PackagePath": "staticwebassets\\PriceCalculator.App.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\js\\downloadFile.js",
+      "PackagePath": "staticwebassets\\js\\downloadFile.js"
+    },
+    {
+      "Id": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\wwwroot\\sample-data\\weather.json",
+      "PackagePath": "staticwebassets\\sample-data\\weather.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PriceCalculator.App.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.PriceCalculator.App.props",
+      "PackagePath": "build\\PriceCalculator.App.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PriceCalculator.App.props",
+      "PackagePath": "buildMultiTargeting\\PriceCalculator.App.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.PriceCalculator.App.props",
+      "PackagePath": "buildTransitive\\PriceCalculator.App.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,202 @@
+﻿@page "/calculate-price"
+@using PriceCalculator.App.Model
+@inject HttpClient Http
+
+<h3>Calculate Total Price</h3>
+
+<div class="form-group">
+    <label for="tierSelect">Select MSP Tier:</label>
+    <select id="tierSelect" class="form-control" @bind="selectedTierId" @bind:event="onchange">
+        <option value="">-- Select MSP Tier --</option>
+        @foreach (var tier in mspTiers.Where(t => t.IsActive))
+        {
+            <option value="@tier.Id">@tier.Name</option>
+        }
+    </select>
+</div>
+
+<h4>Select Resources</h4>
+<div class="resources-list">
+    @foreach (var resource in resources)
+    {
+        <div class="resource-item">
+            <input type="checkbox" @bind="resourceSelections[resource.Id]" id="resource_@resource.Id" />
+            <label for="resource_@resource.Id">@resource.Name (Unit Price: @CalculatedPrice(resource.BasePrice))</label>
+
+            @if (resourceSelections[resource.Id])
+            {
+                <div class="quantity-input">
+                    <label>Quantity:</label>
+                    <input type="number" @bind="quantities[resource.Id]" @bind:event="oninput" min="1" class="form-control quantity-box" />
+                    <span>Price: @GetCalculatedPrice(resource)</span>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (totalPrice.HasValue)
+{
+    <h4>Total Price: @totalPrice.Value</h4>
+}
+
+<button class="btn btn-primary" @onclick="CalculateTotalPrice">Calculate Price</button>
+
+<style>
+    .form-group, .resources-list, .resource-item {
+        margin-bottom: 1em;
+    }
+
+    .quantity-input {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+    }
+
+    .quantity-box {
+        width: 80px;
+    }
+</style>
+
+
+@* <h3>Calculate Total Price</h3>
+<select @bind="selectedTierId" @bind:event="onchange">
+    <option value="">Select MSP Tier</option>
+    @foreach (var tier in mspTiers)
+    {
+        if (tier.IsActive)
+        {
+            <option value="@tier.Id">@tier.Name (@tier.Percentage%)</option>
+
+    }
+    }
+</select>
+
+@foreach (var resource in resources)
+{
+    <div>
+        <input type="checkbox" @bind="resourceSelections[resource.Id]" />
+        <label>@resource.Name (Unit Price:  @CalculatedPrice(resource.BasePrice, resource.Id))</label>
+
+        @if (resourceSelections[resource.Id])
+        {
+            <input type="number" @bind="quantities[resource.Id]" @bind:event="oninput" min="1" style="width: 50px;" />
+            <span>Calculated Price: @GetCalculatedPrice(resource)</span>
+        }
+    </div>
+}
+
+@if (totalPrice.HasValue)
+{
+    <h4>Total Price: @totalPrice.Value</h4>
+}
+
+<button @onclick="CalculateTotalPrice">Calculate Price</button>
+ *@
+@code {
+    private List<Resource> resources = new List<Resource>();
+    private List<MSPTier> mspTiers = new List<MSPTier>();
+    private int? selectedTierId;
+    private Dictionary<int, bool> resourceSelections = new Dictionary<int, bool>();
+    private Dictionary<int, int> quantities = new Dictionary<int, int>();
+    private decimal? totalPrice;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadResources();
+        await LoadTiers();
+    }
+
+    private async Task LoadResources()
+    {
+        resources = await Http.GetFromJsonAsync<List<Resource>>("https://localhost:7072/api/Resources");
+        // Initialize selection and quantities dictionaries
+        resourceSelections = resources.ToDictionary(r => r.Id, r => false);
+        quantities = resources.ToDictionary(r => r.Id, r => 1); // Default quantity of 1
+    }
+
+    private async Task LoadTiers()
+    {
+        mspTiers = await Http.GetFromJsonAsync<List<MSPTier>>("https://localhost:7072/api/MSPTiers");
+    }
+    private decimal CalculatedPrice(decimal calcPrice)
+    {
+        if (selectedTierId.HasValue)
+        {
+            var tier = mspTiers.FirstOrDefault(m => m.Id == selectedTierId.Value);
+            if (tier != null)
+            {
+                // Calculate price based on MSP tier percentage
+                return decimal.Round(calcPrice * tier.Percentage, 2);
+            }
+        }
+        return 0;
+    }
+
+    private decimal GetCalculatedPrice(Resource resource)
+    {
+        if (selectedTierId.HasValue)
+        {
+            var tier = mspTiers.FirstOrDefault(m => m.Id == selectedTierId.Value);
+            if (tier != null && resourceSelections[resource.Id])
+            {
+                // Calculate price based on MSP tier percentage
+                return decimal.Round(quantities[resource.Id] * (resource.BasePrice * tier.Percentage),2);
+            }
+        }
+        return 0;
+    }
+
+    private void UpdateResourcePrices()
+    {
+        // Triggered when MSP tier or quantity changes
+        StateHasChanged();
+    }
+
+    private async Task CalculateTotalPrice()
+    {
+        if (selectedTierId.HasValue)
+        {
+            var selectedResourcesWithQuantities = resourceSelections
+                .Where(r => r.Value) // Filter selected resources
+                .Select(r => new ResourceSelection { ResourceId = r.Key, Quantity = quantities[r.Key] })
+                .ToList();
+
+            if (selectedResourcesWithQuantities.Count > 0)
+            {
+                var requestPayload = new PriceCalculationRequest
+                    {
+                        ResourceSelections = selectedResourcesWithQuantities,
+                        MSPTierId = selectedTierId.Value
+                    };
+
+                var response = await Http.PostAsJsonAsync("https://localhost:7072/api/MSPTiers/CalculatePrice", requestPayload);
+                if (response.IsSuccessStatusCode)
+                {
+                    totalPrice = await response.Content.ReadFromJsonAsync<decimal>();
+                }
+                else
+                {
+                    totalPrice = null;
+                    Console.WriteLine("Error calculating total price: " + response.ReasonPhrase);
+                }
+            }
+            else
+            {
+                totalPrice = 0; // No resources selected
+            }
+        }
+    }
+
+    private class ResourceSelection
+    {
+        public int ResourceId { get; set; }
+        public int Quantity { get; set; }
+    }
+
+    private class PriceCalculationRequest
+    {
+        public List<ResourceSelection> ResourceSelections { get; set; }
+        public int MSPTierId { get; set; }
+    }
+}

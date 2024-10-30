@@ -1,0 +1,98 @@
+﻿@page "/MSPTiers/Create"
+@using PriceCalculator.App.Model
+@using System.Text.Json.Nodes
+@inject HttpClient Http
+@inject NavigationManager navManager
+
+<PageTitle>Create MSP Tier</PageTitle>
+<h1 class="text-center mb-3">Create MSP Tier</h1>
+
+<EditForm Model="@MSPTierData" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label">Name</label>
+                <div class="col-md-8">
+                    <InputText class="form-control" @bind-Value="MSPTierData.Name" />
+                    <ValidationMessage For="@(() => MSPTierData.Name)" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label">Percentage</label>
+                <div class="col-md-8">
+                    <InputNumber class="form-control" @bind-Value="MSPTierData.Percentage" />
+                    <ValidationMessage For="@(() => MSPTierData.Percentage)" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label">IsActive</label>
+                <div class="col-md-8">
+                    <InputCheckbox @bind-Value="MSPTierData.IsActive" class="form-check-input" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-md-4 col-md-4 d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                </div>
+                <div class="col-md-4 d-grid">
+                    <a class="btn btn-outline-primary" href="/MSPTiers">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+
+
+@code {
+    public MSPTierDTO MSPTierData { get; set; } = new MSPTierDTO
+        {
+            Name = string.Empty,  // Initialize Name to avoid null reference
+            Percentage = 0,       // Initialize Percentage
+            IsActive = false      // Default value for checkbox
+        };
+
+    private async Task HandleValidSubmit()
+    {
+        await SaveMSPTier();
+
+        // Reset
+        MSPTierData = new MSPTierDTO
+            {
+                Name = string.Empty,  
+                Percentage = 0,       
+                IsActive = false      
+            }; // Clears the form
+        Console.WriteLine("Form submitted successfully.");
+    }
+
+    protected async Task SaveMSPTier()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("https://localhost:7072/api/MSPTiers", MSPTierData);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Redirect to list of MSP tiers on successful submission
+                navManager.NavigateTo("/MSPTiers");
+            }
+            else
+            {
+                var strResponse = await response.Content.ReadAsStringAsync();
+                Console.WriteLine("Json response: \n" + strResponse);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("An error occurred while saving: " + ex.Message);
+        }
+    }
+}

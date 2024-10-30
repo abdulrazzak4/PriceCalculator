@@ -1,0 +1,56 @@
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.deps.json
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.runtimeconfig.json
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.dll
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.pdb
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.AssemblyReference.cache
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.GeneratedMSBuildEditorConfig.editorconfig
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfoInputs.cache
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfo.cs
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.CoreCompileInputs.cache
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.dll
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\refint\PriceCalculator.Data.dll
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.pdb
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.genruntimeconfig.cache
+F:\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\ref\PriceCalculator.Data.dll
+F:\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.deps.json
+F:\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.runtimeconfig.json
+F:\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.dll
+F:\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.pdb
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.AssemblyReference.cache
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.GeneratedMSBuildEditorConfig.editorconfig
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfoInputs.cache
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfo.cs
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.CoreCompileInputs.cache
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.dll
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\refint\PriceCalculator.Data.dll
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.pdb
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.genruntimeconfig.cache
+F:\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\ref\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.deps.json
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.runtimeconfig.json
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.pdb
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.AssemblyReference.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfoInputs.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfo.cs
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.CoreCompileInputs.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\refint\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.pdb
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.genruntimeconfig.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\ref\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.deps.json
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.runtimeconfig.json
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\bin\Debug\net8.0\PriceCalculator.Data.pdb
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.AssemblyReference.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfoInputs.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfo.cs
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.CoreCompileInputs.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\refint\PriceCalculator.Data.dll
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.pdb
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.genruntimeconfig.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\ref\PriceCalculator.Data.dll
