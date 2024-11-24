@@ -1,0 +1,273 @@
+﻿@page "/discounts"
+@using PriceCalculator.App.Model
+@using PriceCalculator.App.Services
+@inject DiscountService DiscountService
+@inject ResourceService ResourceService
+@inject NavigationManager navManager
+
+<PageTitle>Resources</PageTitle>
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Manage Resources</h1>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Create or Edit Discount</h4>
+        </div>
+        <div class="card-body">
+            <EditForm Model="@selectedDiscount" OnValidSubmit="SaveDiscount">
+                <div class="form-group mb-3">
+                    <label>Min Quantity</label>
+                    <InputNumber class="form-control" @bind-Value="selectedDiscount.MinQuantity" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Max Quantity</label>
+                    <InputNumber class="form-control" @bind-Value="selectedDiscount.MaxQuantity" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Discount Percentage</label>
+                    <InputNumber class="form-control" @bind-Value="selectedDiscount.DiscountPercentage" />
+                </div>
+                <div class="form-group mb-3">
+                    <label>Assign Resources</label>
+                    <div class="mb-3">
+                        @if (selectedDiscount != null && allResources != null)
+                        {
+                            @foreach (var resource in allResources)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="resource-@resource.Id"
+                                           value="@resource.Id"
+                                           checked="@selectedDiscount.ResourceIds.Contains(resource.Id)"
+                                           @onchange="(e) => OnResourceCheckboxChanged(e, resource.Id)" />
+                                    <label class="form-check-label" for="resource-@resource.Id">@resource.Id - @resource.Name</label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>Loading...</p>
+                        }
+
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Save Discount</button>
+            </EditForm>
+        </div>
+    </div>
+
+    <h4 class="mb-3">Existing Resources</h4>
+
+    @if (discounts == null)
+    {
+        <p>Loading discounts...</p>
+    }
+    else if (discounts.Count == 0)
+    {
+        <p>No discounts found.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Min Quantity</th>
+                        <th>Max Quantity</th>
+                        <th>Discount (%)</th>
+                        <th>ResourceIds</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var discount in discounts)
+                    {
+                        <tr>
+                            <td>@discount.Id</td>
+                            <td>@discount.MinQuantity</td>
+                            <td>@discount.MaxQuantity</td>
+                            <td>@discount.DiscountPercentage</td>
+                            <td>
+                                @if (discount.DiscountResources != null)
+                                {
+                                    @foreach (var resource in discount.DiscountResources)
+                                    {
+                                        <span class="badge bg-info text-dark">@resource.ResourceId </span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <button class="btn btn-success btn-sm me-2" @onclick="() => EditDiscount(discount)">Edit</button>
+                                <button class="btn btn-danger btn-sm" @onclick="() => DeleteDiscount(discount.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .btn {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+</style>
+
+@code {
+    private List<DiscountDTO> discounts = new List<DiscountDTO>(){
+        new DiscountDTO(){
+            DiscountResources =new List<DiscountResourceDTO>(),
+            ResourceIds = new List<int>()
+        }
+        };
+    private List<ResourceDTO> allResources = new List<ResourceDTO>();
+    private DiscountDTO selectedDiscount = new DiscountDTO
+        {
+            ResourceIds = new List<int>()
+        };
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadResources();
+        await LoadDiscounts();
+    }
+
+    private async Task LoadDiscounts()
+    {
+        try
+        {
+            isLoading = true;
+            discounts = await DiscountService.GetDiscountsAsync() ?? new List<DiscountDTO>();
+        }
+        catch
+        {
+            // Handle errors here
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task LoadResources()
+    {
+        allResources = await ResourceService.GetResourcesAsync();
+    }
+    // Load existing resource data for editing
+
+    private async Task OnResourceCheckboxChanged(ChangeEventArgs e, int resourceId)
+    {
+        var isChecked = (bool)e.Value;
+
+        if (isChecked)
+        {
+            selectedDiscount.ResourceIds.Add(resourceId);
+        }
+        else
+        {
+            selectedDiscount.ResourceIds.Remove(resourceId);
+        }
+
+        // Optional: Call an API to save the updated discount
+        //await DiscountService.UpdateDiscountAsync(selectedDiscount);
+    }
+    private async Task EditDiscount(DiscountDTO discount)
+    {
+        if (discount == null) return;
+        // Fetch selected discount details
+        selectedDiscount = await DiscountService.GetDiscountByIdAsync(discount.Id);
+
+        // Ensure selectedDiscount is initialized
+        if (selectedDiscount == null) return;
+
+        // Ensure ResourceIds is initialized
+        if (selectedDiscount.ResourceIds == null) selectedDiscount.ResourceIds = new List<int>();
+
+        // Populate ResourceIds
+        if (discount.DiscountResources != null)
+        {
+            foreach (var resourceid in discount.DiscountResources)
+            {
+                selectedDiscount.ResourceIds.Add(resourceid.ResourceId);
+            }
+        }
+        StateHasChanged(); // Update UI
+    }
+
+    // private async Task SaveDiscount()
+    // {
+    //     selectedDiscount.Resources = allResources.Where(r => r.IsSelected).ToList();
+    //     try
+    //     {
+    //         if (selectedDiscount.Id == 0)
+    //         {
+    //             await DiscountService.CreateDiscountAsync(selectedDiscount);
+    //         }
+    //         else
+    //         {
+    //             await DiscountService.UpdateDiscountAsync(selectedDiscount);
+    //         }
+    //         StateHasChanged(); // Update UI
+    //     }
+    //     catch
+    //     {
+    //         // Handle errors here
+    //    
+    //  }
+    // }
+    private async Task SaveDiscount()
+    {
+        selectedDiscount.Resources = allResources.Where(r => r.IsSelected).ToList();
+        try
+        {
+            if (selectedDiscount.Id == 0)
+            {
+                await DiscountService.CreateDiscountAsync(selectedDiscount);
+            }
+            else
+            {
+                await DiscountService.UpdateDiscountAsync(selectedDiscount);
+            }
+
+            // Reload data and reset the state
+            //await LoadDiscounts(); // Assuming this method reloads the discount list
+            //selectedDiscount = new DiscountDTO(); // Reset the selected discount
+            StateHasChanged(); // Trigger UI update
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving discount: {ex.Message}");
+            // Handle errors here
+        }
+    }
+
+    private async Task DeleteDiscount(int id)
+    {
+        try
+        {
+            await DiscountService.DeleteDiscountAsync(id);
+            await LoadResources();
+        }
+        catch
+        {
+            // Handle errors here
+        }
+    }
+}

@@ -1,7 +1,9 @@
 ﻿@page "/MSPTiers/Delete/{Id:int}"
 @using PriceCalculator.App.Model
 @using System.Text.Json.Nodes
-@inject HttpClient Http
+@using PriceCalculator.App.Services
+
+@inject MSPTierService MSPTierService
 @inject NavigationManager navManager
 
 <h1 class="mb-5">Delete</h1>
@@ -14,18 +16,11 @@
     {
         try
         {
-            var response = await Http.DeleteAsync($"https://localhost:7072/api/MSPTiers/{Id}");
+        await MSPTierService.DeleteMSPTierAsync(Id);
 
-            if (response.IsSuccessStatusCode)
-            {
                 // Redirect to the MSP Tiers list page after successful update
                 navManager.NavigateTo("/MSPTiers");
-            }
-            else
-            {
-                var strResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Json response: \n" + strResponse);
-            }
+           
         }
         catch (Exception ex)
         {

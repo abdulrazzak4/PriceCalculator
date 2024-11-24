@@ -1,8 +1,8 @@
-﻿using PriceCalculator.App.Data;
-using PriceCalculator.App.Interfaces;
-using PriceCalculator.App.Model;
+﻿using PriceCalculator.Data.Data;
+using PriceCalculator.Data.Interfaces;
+using PriceCalculator.Data.Model;
 
-namespace PriceCalculator.App.Repositories
+namespace PriceCalculator.Data.Repositories
 {
     public class ResourceRepository(ApplicationDbContext db) : Repository<Resource>(db), IResourceRepository
     {

@@ -9,6 +9,7 @@ namespace PriceCalculator.App.Model
         public required string Name { get; set; }
         [Required(ErrorMessage = "Percentage is required")]
         public decimal Percentage { get; set; }
+        public int FloorPrice { get; set; }
         public bool IsActive { get; set; }
     }
 }

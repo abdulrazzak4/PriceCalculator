@@ -1,11 +1,12 @@
 ﻿@page "/Resources"
 @using PriceCalculator.App.Model
-@inject HttpClient Http
+@using PriceCalculator.App.Services
+@inject ResourceService ResourceService
 
 
 
 <PageTitle>Resources</PageTitle>
-<h1 class="text-center mb-3">List of MSP Tier</h1>
+<h1 class="text-center mb-3">List of Resources</h1>
 <a class="btn btn-primary mb-3 " href="/Resources/Create">New Resource</a>
 @if (resources == null)
 {
@@ -45,6 +46,6 @@ else
 
     private async Task LoadResources()
     {
-        resources = await Http.GetFromJsonAsync<List<ResourceDTO>>("https://localhost:7072/api/Resources");
+        resources = await ResourceService.GetResourcesAsync();
     }
 }

@@ -1,7 +1,8 @@
 ﻿@page "/MSPTiers"
 @using PriceCalculator.App.Model
+@using PriceCalculator.App.Services
 
-@inject HttpClient Http
+@inject MSPTierService MSPTierService
 
 <PageTitle>MSP Tier</PageTitle>
 <h1 class="text-center mb-3">List of MSP Tier</h1>
@@ -16,6 +17,7 @@
             <tr>
                 <th>Name</th>
                 <th>Percentage</th>
+                <th>FloorPrice</th>
                 <th>IsActive</th>
                 <th>Action</th>
             </tr>
@@ -26,6 +28,7 @@
                 <tr>
                     <td>@mSPTier.Name</td>
                     <td>@mSPTier.Percentage</td>
+                    <td>@mSPTier.FloorPrice</td>
                     <td>@mSPTier.IsActive</td>
                     <td style="white-space:nowrap">
                         <a class="btn btn-primary btn-sm" href="/MSPTiers/Edit/@mSPTier.Id">Edit</a>
@@ -37,11 +40,11 @@
     </table>
 }
 @code {
-    private List<MSPTier>? mSPTiers;
+    private List<MSPTierDTO>? mSPTiers;
 
     protected override async Task OnInitializedAsync()
     {
         // Fetch mSPTiers from the API
-        mSPTiers = await Http.GetFromJsonAsync<List<MSPTier>>("https://localhost:7072/api/MSPTiers");
+        mSPTiers = await MSPTierService.GetMSPTiersAsync();
     }
 }

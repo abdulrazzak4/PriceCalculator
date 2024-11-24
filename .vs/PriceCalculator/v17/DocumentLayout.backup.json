@@ -1,0 +1,138 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3A6CBC30-9497-49B9-AD14-54B387886E40}|WebApi\\PriceCalculator.Api.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3A6CBC30-9497-49B9-AD14-54B387886E40}|WebApi\\PriceCalculator.Api.csproj|solutionrelative:webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A6CBC30-9497-49B9-AD14-54B387886E40}|WebApi\\PriceCalculator.Api.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\webapi\\controllers\\discountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A6CBC30-9497-49B9-AD14-54B387886E40}|WebApi\\PriceCalculator.Api.csproj|solutionrelative:webapi\\controllers\\discountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\pricecalculator.app\\pages\\discounts\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|solutionrelative:pricecalculator.app\\pages\\discounts\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\pricecalculator.app\\pages\\msptiers\\create.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|solutionrelative:pricecalculator.app\\pages\\msptiers\\create.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4228A764-3C2B-4C86-909B-8322F0751ED9}|PriceCalculator.Data\\PriceCalculator.Data.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\pricecalculator.data\\model\\discount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4228A764-3C2B-4C86-909B-8322F0751ED9}|PriceCalculator.Data\\PriceCalculator.Data.csproj|solutionrelative:pricecalculator.data\\model\\discount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\pricecalculator.app\\model\\discountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|solutionrelative:pricecalculator.app\\model\\discountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|c:\\users\\abd\\desktop\\dotnet pro\\pricecalculator-sql\\pricecalculator\\pricecalculator.app\\services\\discountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73FA4BB8-ED15-4808-B4F6-83D2208D14E4}|PriceCalculator.App\\PriceCalculator.App.csproj|solutionrelative:pricecalculator.app\\services\\discountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\WebApi\\appsettings.json",
+              "RelativeDocumentMoniker": "WebApi\\appsettings.json",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\WebApi\\appsettings.json",
+              "RelativeToolTip": "WebApi\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-23T14:37:37.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Create.razor",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Pages\\MSPTiers\\Create.razor",
+              "RelativeDocumentMoniker": "PriceCalculator.App\\Pages\\MSPTiers\\Create.razor",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Pages\\MSPTiers\\Create.razor",
+              "RelativeToolTip": "PriceCalculator.App\\Pages\\MSPTiers\\Create.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-22T09:10:01.42Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Discount.cs",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.Data\\Model\\Discount.cs",
+              "RelativeDocumentMoniker": "PriceCalculator.Data\\Model\\Discount.cs",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.Data\\Model\\Discount.cs",
+              "RelativeToolTip": "PriceCalculator.Data\\Model\\Discount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T08:52:00.51Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DiscountsController.cs",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\WebApi\\Controllers\\DiscountsController.cs",
+              "RelativeDocumentMoniker": "WebApi\\Controllers\\DiscountsController.cs",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\WebApi\\Controllers\\DiscountsController.cs",
+              "RelativeToolTip": "WebApi\\Controllers\\DiscountsController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAH4AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T08:17:26.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DiscountDTO.cs",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Model\\DiscountDTO.cs",
+              "RelativeDocumentMoniker": "PriceCalculator.App\\Model\\DiscountDTO.cs",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Model\\DiscountDTO.cs",
+              "RelativeToolTip": "PriceCalculator.App\\Model\\DiscountDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T08:27:30.23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DiscountService.cs",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Services\\DiscountService.cs",
+              "RelativeDocumentMoniker": "PriceCalculator.App\\Services\\DiscountService.cs",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Services\\DiscountService.cs",
+              "RelativeToolTip": "PriceCalculator.App\\Services\\DiscountService.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T08:14:42.263Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Pages\\Discounts\\Index.razor",
+              "RelativeDocumentMoniker": "PriceCalculator.App\\Pages\\Discounts\\Index.razor",
+              "ToolTip": "C:\\Users\\ABD\\Desktop\\dotnet pro\\PriceCalculator-sql\\PriceCalculator\\PriceCalculator.App\\Pages\\Discounts\\Index.razor",
+              "RelativeToolTip": "PriceCalculator.App\\Pages\\Discounts\\Index.razor",
+              "ViewState": "AgIAABgAAAAAAAAAAAAmwCEAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-22T06:05:25.679Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

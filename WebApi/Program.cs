@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PriceCalculator.Api.Services;
-using PriceCalculator.App.Data;
-using PriceCalculator.App.Interfaces;
-using PriceCalculator.App.Repositories;
+using PriceCalculator.Data.Data;
+using PriceCalculator.Data.Interfaces;
+using PriceCalculator.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +20,18 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IMSPTierRepository, MSPTierRepository>();
 builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
+builder.Services.AddScoped<IScopeRepository, ScopeRepository>();
+builder.Services.AddScoped<IDiscountResourceRepository, DiscountResourceRepository>();
 builder.Services.AddScoped<PriceCalculationService>();
-builder.Services.AddScoped<IPdfService, PdfService>();
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder =>
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
-
+//builder.Services.AddControllers().AddJsonOptions(options =>
+//{
+//    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+//});
 
 var app = builder.Build();
 
@@ -36,12 +41,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+// Enable CORS middleware
+app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-// Enable CORS middleware
-app.UseCors("AllowAllOrigins");
+
 app.Run();

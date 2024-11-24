@@ -1,7 +1,9 @@
 ﻿@page "/MSPTiers/Create"
 @using PriceCalculator.App.Model
 @using System.Text.Json.Nodes
-@inject HttpClient Http
+@using PriceCalculator.App.Services
+
+@inject MSPTierService MSPTierService
 @inject NavigationManager navManager
 
 <PageTitle>Create MSP Tier</PageTitle>
@@ -27,6 +29,13 @@
                 <div class="col-md-8">
                     <InputNumber class="form-control" @bind-Value="MSPTierData.Percentage" />
                     <ValidationMessage For="@(() => MSPTierData.Percentage)" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label">Floor Price</label>
+                <div class="col-md-8">
+                    <InputNumber class="form-control" @bind-Value="MSPTierData.FloorPrice" />
+                    <ValidationMessage For="@(() => MSPTierData.FloorPrice)" />
                 </div>
             </div>
             <div class="row mb-3">
@@ -77,18 +86,11 @@
     {
         try
         {
-            var response = await Http.PostAsJsonAsync("https://localhost:7072/api/MSPTiers", MSPTierData);
+            await MSPTierService.CreateMSPTierAsync(MSPTierData);
 
-            if (response.IsSuccessStatusCode)
-            {
                 // Redirect to list of MSP tiers on successful submission
                 navManager.NavigateTo("/MSPTiers");
-            }
-            else
-            {
-                var strResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Json response: \n" + strResponse);
-            }
+
         }
         catch (Exception ex)
         {

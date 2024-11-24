@@ -1,6 +1,6 @@
-﻿using PriceCalculator.App.Model;
+﻿using PriceCalculator.Data.Model;
 
-namespace PriceCalculator.App.Interfaces
+namespace PriceCalculator.Data.Interfaces
 {
     public interface IResourceRepository : IRepository<Resource>
     {

@@ -49,6 +49,7 @@ C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalcula
 C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfoInputs.cache
 C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.AssemblyInfo.cs
 C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.csproj.CoreCompileInputs.cache
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.sourcelink.json
 C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.dll
 C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\refint\PriceCalculator.Data.dll
 C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.Data\obj\Debug\net8.0\PriceCalculator.Data.pdb

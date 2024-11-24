@@ -1,7 +1,8 @@
 ﻿@page "/Resources/Create"
 @using PriceCalculator.App.Model
 @using System.Text.Json.Nodes
-@inject HttpClient Http
+@using PriceCalculator.App.Services
+@inject ResourceService ResourceService
 @inject NavigationManager navManager
 
 <PageTitle>Create Resource</PageTitle>
@@ -65,18 +66,9 @@
     {
         try
         {
-            var response = await Http.PostAsJsonAsync("https://localhost:7072/api/Resources", ResourceData);
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Redirect to list of Resources on successful submission
-                navManager.NavigateTo("/Resources");
-            }
-            else
-            {
-                var strResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Json response: \n" + strResponse);
-            }
+            await ResourceService.CreateRseourceAsync(ResourceData);
+            // Redirect to list of Resources on successful submission
+            navManager.NavigateTo("/Resources");
         }
         catch (Exception ex)
         {

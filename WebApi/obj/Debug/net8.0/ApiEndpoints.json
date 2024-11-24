@@ -1,5 +1,114 @@
 [
   {
+    "ContainingType": "PriceCalculator.Api.Controllers.DiscountsController",
+    "Method": "GetDiscounts",
+    "RelativePath": "api/Discounts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PriceCalculator.Data.Model.Discount, PriceCalculator.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.DiscountsController",
+    "Method": "CreateDiscount",
+    "RelativePath": "api/Discounts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "discountRule",
+        "Type": "PriceCalculator.Data.Model.DiscountVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PriceCalculator.Data.Model.Discount",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.DiscountsController",
+    "Method": "GetDiscount",
+    "RelativePath": "api/Discounts/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PriceCalculator.Data.Model.Discount",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.DiscountsController",
+    "Method": "UpdateDiscount",
+    "RelativePath": "api/Discounts/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "discountRule",
+        "Type": "PriceCalculator.Data.Model.DiscountVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.DiscountsController",
+    "Method": "DeleteDiscount",
+    "RelativePath": "api/Discounts/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PriceCalculator.Api.Controllers.MSPTiersController",
     "Method": "GetMSPTiers",
     "RelativePath": "api/MSPTiers",
@@ -9,7 +118,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PriceCalculator.App.Model.MSPTier, PriceCalculator.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PriceCalculator.Data.Model.MSPTier, PriceCalculator.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -29,13 +138,13 @@
     "Parameters": [
       {
         "Name": "mSPTier",
-        "Type": "PriceCalculator.App.Model.MSPTier",
+        "Type": "PriceCalculator.Data.Model.MSPTier",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "PriceCalculator.App.Model.MSPTier",
+        "Type": "PriceCalculator.Data.Model.MSPTier",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -61,7 +170,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "PriceCalculator.App.Model.MSPTier",
+        "Type": "PriceCalculator.Data.Model.MSPTier",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -86,7 +195,7 @@
       },
       {
         "Name": "mSPTier",
-        "Type": "PriceCalculator.App.Model.MSPTier",
+        "Type": "PriceCalculator.Data.Model.MSPTier",
         "IsRequired": true
       }
     ],
@@ -109,9 +218,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "PriceCalculator.Api.Controllers.MSPTiersController",
+    "ContainingType": "PriceCalculator.Api.Controllers.PricesController",
     "Method": "CalculateTotalPrice",
-    "RelativePath": "api/MSPTiers/CalculatePrice",
+    "RelativePath": "api/Prices/CalculatePrice",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -144,7 +253,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PriceCalculator.App.Model.Resource, PriceCalculator.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PriceCalculator.Data.Model.Resource, PriceCalculator.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -164,13 +273,13 @@
     "Parameters": [
       {
         "Name": "resource",
-        "Type": "PriceCalculator.App.Model.Resource",
+        "Type": "PriceCalculator.Data.Model.Resource",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "PriceCalculator.App.Model.Resource",
+        "Type": "PriceCalculator.Data.Model.Resource",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -196,7 +305,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "PriceCalculator.App.Model.Resource",
+        "Type": "PriceCalculator.Data.Model.Resource",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -221,7 +330,7 @@
       },
       {
         "Name": "resource",
-        "Type": "PriceCalculator.App.Model.Resource",
+        "Type": "PriceCalculator.Data.Model.Resource",
         "IsRequired": true
       }
     ],
@@ -244,16 +353,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebApi.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "PriceCalculator.Api.Controllers.ScopesController",
+    "Method": "GetScopes",
+    "RelativePath": "api/Scopes",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApi.WeatherForecast, PriceCalculator.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PriceCalculator.Data.Model.Scope, PriceCalculator.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -261,7 +370,95 @@
         ],
         "StatusCode": 200
       }
+    ]
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.ScopesController",
+    "Method": "CreateScope",
+    "RelativePath": "api/Scopes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "scope",
+        "Type": "PriceCalculator.Data.Model.Scope",
+        "IsRequired": true
+      }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": [
+      {
+        "Type": "PriceCalculator.Data.Model.Scope",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.ScopesController",
+    "Method": "GetScope",
+    "RelativePath": "api/Scopes/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PriceCalculator.Data.Model.Scope",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.ScopesController",
+    "Method": "UpdateScope",
+    "RelativePath": "api/Scopes/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "scope",
+        "Type": "PriceCalculator.Data.Model.Scope",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PriceCalculator.Api.Controllers.ScopesController",
+    "Method": "DeleteScope",
+    "RelativePath": "api/Scopes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

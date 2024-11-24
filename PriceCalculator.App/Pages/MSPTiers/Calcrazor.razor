@@ -1,0 +1,290 @@
+﻿@page "/calcprice"
+@using PriceCalculator.App.Model
+@using OfficeOpenXml;
+@using OfficeOpenXml.Style;
+@using PriceCalculator.App.Services
+@inject ResourceService ResourceService
+@inject MSPTierService MSPTierService
+@inject PriceService PriceService
+@inject IJSRuntime JS
+
+<h3 class="text-center mb-4">Calculate Total Price</h3>
+
+<div class="form-group">
+    <label>Select MSP Tier</label>
+    <select @bind="selectedTierId" @bind:event="onchange" class="form-control">
+        <option value="">Select MSP Tier</option>
+        @foreach (var tier in mspTiers)
+        {
+            if (tier.IsActive)
+            {
+                <option value="@tier.Id">@tier.Name</option>
+            }
+        }
+    </select>
+</div>
+
+
+<div class="resource-container mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Resource</th>
+                <th>Scopes</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var resourceSelection in resourceSelections)
+            {
+                <tr>
+                    <td>@resourceSelection.ResourceName</td>
+                    <td>
+                        @foreach (var scope in resourceSelection.Scopes)
+                        {
+                            <div>
+                                <input type="checkbox" @bind="scope.IsSelected" />
+                                <label>@scope.Text</label>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <input type="number" @bind="resourceSelection.Quantity" min="1" class="form-control" style="width: 80px;" />
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => RemoveResourceSelection(resourceSelection)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label>Select Resource to Add</label>
+        <select @bind="selectedResourceId" class="form-control">
+            <option value="">Select Resource</option>
+            @foreach (var resource in resources)
+            {
+                <option value="@resource.Id">@resource.Name</option>
+            }
+        </select>
+        <button class="btn btn-primary mt-2" @onclick="AddResourceSelection">Add Resource</button>
+    </div>
+
+</div>
+
+<div class="text-center mt-4">
+    <button @onclick="CalculateTotalPrice" class="btn btn-success">Calculate Price</button>
+    <button @onclick="ExportToCsv" class="btn btn-info">Export to CSV</button>
+    <button @onclick="ExportToExcel" class="btn btn-info">Export to Excel</button>
+</div>
+
+@if (totalPrice.HasValue)
+{
+    <h4 class="text-center mt-4">Total Price: $@totalPrice.Value</h4>
+}
+
+@code {
+    private List<ResourceDTO> resources = new List<ResourceDTO>();
+    private List<MSPTierDTO> mspTiers = new List<MSPTierDTO>();
+    private int? selectedTierId;
+    private int? selectedResourceId;
+    private decimal? totalPrice;
+
+    private List<ResourceSelectionDTO> resourceSelections = new();
+
+    // private class ResourceSelection
+    // {
+    //     public int ResourceId { get; set; }
+    //     public string ResourceName { get; set; }
+    //     public int Quantity { get; set; } = 1;
+    //     public List<ScopeSelection> Scopes { get; set; } = new();
+    // }
+
+    // private class ScopeSelection
+    // {
+    //     public int Id { get; set; }
+    //     public string Text { get; set; }
+    //     public bool IsSelected { get; set; }
+    // }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadResources();
+        await LoadTiers();
+    }
+
+    private async Task LoadResources()
+    {
+        resources = await ResourceService.GetResourcesAsync();
+    }
+
+    private async Task LoadTiers()
+    {
+        mspTiers = await MSPTierService.GetMSPTiersAsync();
+    }
+
+    private void AddResourceSelection()
+    {
+        if (selectedResourceId.HasValue)
+        {
+            var resource = resources.FirstOrDefault(r => r.Id == selectedResourceId.Value);
+            if (resource != null)
+            {
+                var newResourceSelection = new ResourceSelectionDTO
+                    {
+                        ResourceId = resource.Id,
+                        ResourceName = resource.Name,
+                        Scopes = resource.Scopes.Select(s => new ScopeSelectionDTO
+                        {
+                            Id = s.Id,
+                            Text = s.Text
+                        }).ToList()
+                    };
+                resourceSelections.Add(newResourceSelection);
+            }
+        }
+    }
+
+    private void RemoveResourceSelection(ResourceSelectionDTO selection)
+    {
+        resourceSelections.Remove(selection);
+    }
+
+    private async Task CalculateTotalPrice()
+    {
+        if (selectedTierId.HasValue)
+        {
+            try
+            {
+                var requestPayload = new PriceCalculationRequestDTO
+                    {
+                        ResourceSelections = resourceSelections
+                                        .Select(r => new ResourceSelectionDTO
+                                        {
+                                            ResourceId = r.ResourceId,
+                                            ScopeIds = r.Scopes.Where(s => s.IsSelected).Select(s => s.Id).ToList(),
+                                            Quantity = r.Quantity
+                                        }).ToList(),
+                        MSPTierId = selectedTierId.Value
+                    };
+
+                totalPrice = await PriceService.GetTotalPriceAsync(requestPayload);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error calculating price: {ex.Message}");
+            }
+        }
+    }
+    private async Task ExportToCsv()
+    {
+        // Header with MSP Tier and Total Price
+        var mspTierName = mspTiers.FirstOrDefault(t => t.Id == selectedTierId)?.Name ?? "Unknown MSP Tier";
+        var csvData = $"MSP Tier:,{mspTierName}\nTotal Price:,$ {totalPrice?.ToString("F2") ?? "N/A"}\n\n";
+
+        // Column headers for the detailed resource data
+        csvData += "Resource,Scope,Quantity\n";
+
+        // Add rows for each selected resource, including those without selected scopes
+        foreach (var resourceSelection in resourceSelections)
+        {
+            var resourceName = resourceSelection.ResourceName;
+
+            // If there are no selected scopes, add a row with just the resource name and quantity
+            var selectedScopes = resourceSelection.Scopes.Where(s => s.IsSelected).ToList();
+            if (selectedScopes.Count == 0)
+            {
+                csvData += $"{resourceName},None,{resourceSelection.Quantity}\n";
+            }
+            else
+            {
+                // Add rows for each selected scope
+                foreach (var scope in selectedScopes)
+                {
+                    var scopeName = scope.Text;
+                    csvData += $"{resourceName},{scopeName},{resourceSelection.Quantity}\n";
+                }
+            }
+        }
+
+        // Generate and trigger download
+        var bytes = System.Text.Encoding.UTF8.GetBytes(csvData);
+        var fileName = $"ResourceSelection_{DateTime.Now:yyyyMMddHHmm}.csv";
+        await JS.InvokeVoidAsync("saveAsFile", fileName, Convert.ToBase64String(bytes));
+    }
+    private async Task ExportToExcel()
+    {
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+        using var package = new ExcelPackage();
+        var worksheet = package.Workbook.Worksheets.Add("Resource Selection");
+
+        // Set headers with different background color
+        worksheet.Cells["A1"].Value = "MSP Tier:";
+        worksheet.Cells["B1"].Value = mspTiers.FirstOrDefault(t => t.Id == selectedTierId)?.Name ?? "Unknown MSP Tier";
+        worksheet.Cells["A2"].Value = "Total Price:";
+        worksheet.Cells["B2"].Value = $"$ {totalPrice?.ToString("F2") ?? "N/A"}";
+
+        // Column headers for the table
+        worksheet.Cells["A4"].Value = "Resource";
+        worksheet.Cells["B4"].Value = "Scope";
+        worksheet.Cells["C4"].Value = "Quantity";
+
+        // Apply styling to the header row
+        using (var range = worksheet.Cells["A4:C4"])
+        {
+            range.Style.Font.Bold = true;
+            range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue); // Set header background color
+            range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+        }
+
+        // Start adding rows below the header
+        int row = 5;
+        foreach (var resourceSelection in resourceSelections)
+        {
+            var resourceName = resourceSelection.ResourceName;
+            var selectedScopes = resourceSelection.Scopes.Where(s => s.IsSelected).ToList();
+
+            if (selectedScopes.Count == 0)
+            {
+                worksheet.Cells[row, 1].Value = resourceName;
+                worksheet.Cells[row, 2].Value = "None";
+                worksheet.Cells[row, 3].Value = resourceSelection.Quantity;
+                row++;
+            }
+            else
+            {
+                foreach (var scope in selectedScopes)
+                {
+                    worksheet.Cells[row, 1].Value = resourceName;
+                    worksheet.Cells[row, 2].Value = scope.Text;
+                    worksheet.Cells[row, 3].Value = resourceSelection.Quantity;
+                    row++;
+                }
+            }
+        }
+
+        // Auto-fit columns
+        worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+        // Trigger download
+        var fileName = $"ResourceSelection_{DateTime.Now:yyyyMMddHHmm}.xlsx";
+        var bytes = package.GetAsByteArray();
+        await JS.InvokeVoidAsync("saveAsFile", fileName, Convert.ToBase64String(bytes));
+    }
+}
+
+<style>
+    .form-group, .available-resources, .selected-resources {
+        margin-bottom: 15px;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+</style>

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace PriceCalculator.App.Migrations
+namespace PriceCalculator.Data.Migrations
 {
     /// <inheritdoc />
     public partial class initalCreate : Migration

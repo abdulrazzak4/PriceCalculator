@@ -1,10 +1,12 @@
 ﻿@page "/MSPTiers/Edit/{Id:int}"
 @using PriceCalculator.App.Model
 @using System.Text.Json.Nodes
-@inject HttpClient Http
+@using PriceCalculator.App.Services
+
+@inject MSPTierService MSPTierService
 @inject NavigationManager navManager
 
-@if (mSPTier != null)
+@if (MSPTierData == null)
 {
     <p><em>Loading ....</em></p>
 }
@@ -39,6 +41,13 @@ else
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <label class="col-md-4 col-form-label">Floor Price</label>
+                    <div class="col-md-8">
+                        <InputNumber class="form-control" @bind-Value="MSPTierData.FloorPrice" />
+                        <ValidationMessage For="@(() => MSPTierData.FloorPrice)" />
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <label class="col-md-4 col-form-label">IsActive</label>
                     <div class="col-md-8">
                         <InputCheckbox @bind-Value="MSPTierData.IsActive" class="form-check-input" />
@@ -64,7 +73,7 @@ else
 @code {
     [Parameter]
     public int Id { set; get; }
-    public MSPTier? mSPTier = null;
+    //public MSPTier? mSPTier = null;
     public MSPTierDTO MSPTierData { get; set; } = new MSPTierDTO
         {
             Name = "",  // Provide initial value
@@ -80,7 +89,7 @@ else
     {
         try
         {
-            var response = await Http.GetFromJsonAsync<MSPTierDTO>($"https://localhost:7072/api/MSPTiers/{Id}");
+            var response = await MSPTierService.GetMSPTierByIdAsync(Id);
             if (response != null)
             {
                 MSPTierData = response;
@@ -109,17 +118,11 @@ else
     {
         try
         {
-            var response = await Http.PutAsJsonAsync($"https://localhost:7072/api/MSPTiers/{Id}", MSPTierData);
-            if (response.IsSuccessStatusCode)
-            {
+            await MSPTierService.UpdateMSPTierAsync(MSPTierData);
+         
                 // Redirect to the MSP Tiers list page after successful update
                 navManager.NavigateTo("/MSPTiers");
-            }
-            else
-            {
-                var strResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Json response: \n" + strResponse);
-            }
+
         }
         catch (Exception ex)
         {

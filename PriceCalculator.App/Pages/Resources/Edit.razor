@@ -1,10 +1,11 @@
 ﻿@page "/Resources/Edit/{Id:int}"
 @using PriceCalculator.App.Model
 @using System.Text.Json.Nodes
-@inject HttpClient Http
+@using PriceCalculator.App.Services
+@inject ResourceService ResourceService
 @inject NavigationManager navManager
 
-@if (resource != null)
+@if (ResourceData == null)
 {
     <p><em>Loading ....</em></p>
 }
@@ -56,7 +57,7 @@ else
 @code {
     [Parameter]
     public int Id { set; get; }
-    public Resource? resource = null;
+    //public Resource? resource = null;
     public ResourceDTO ResourceData { get; set; } = new ResourceDTO
         {
             Name = "",  // Provide initial value
@@ -73,7 +74,7 @@ else
     {
         try
         {
-            var response = await Http.GetFromJsonAsync<ResourceDTO>($"https://localhost:7072/api/Resources/{Id}");
+            var response = await ResourceService.GetRseourceByIdAsync(Id);
             if (response != null)
             {
                 ResourceData = response;
@@ -101,17 +102,10 @@ else
     {
         try
         {
-            var response = await Http.PutAsJsonAsync($"https://localhost:7072/api/Resources/{Id}", ResourceData);
-            if (response.IsSuccessStatusCode)
-            {
-                // Redirect to the resource list page after successful update
-                navManager.NavigateTo("/Resources");
-            }
-            else
-            {
-                var strResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Json response: \n" + strResponse);
-            }
+            await ResourceService.UpdateRseourceAsync(ResourceData);
+            // Redirect to list of Resources on successful submission
+            navManager.NavigateTo("/Resources");
+
         }
         catch (Exception ex)
         {

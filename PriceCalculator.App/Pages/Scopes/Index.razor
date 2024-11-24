@@ -1,0 +1,217 @@
+﻿@page "/scopes"
+@using PriceCalculator.App.Model
+@using PriceCalculator.App.Services
+@inject ScopeService ScopeService
+@inject ResourceService ResourceService
+
+<PageTitle>Scopes</PageTitle>
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Manage Scopes</h1>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Create New Scope</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group mb-3">
+                <label>Scope Text</label>
+                <input type="text" @bind="scopeText" class="form-control" placeholder="Enter scope text" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Price Modifier</label>
+                <input type="number" @bind="priceModifier" class="form-control" placeholder="Enter price modifier" />
+            </div>
+            <div class="form-group mb-3">
+                <label>Select Resource</label>
+                <select @bind="selectedResourceId" class="form-select">
+                    <option value="">Select a Resource</option>
+                    @if (resources != null)
+                    {
+                        @foreach (var resource in resources)
+                        {
+                            <option value="@resource.Id">@resource.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <button type="button" @onclick="SaveScope" class="btn btn-primary w-100 mt-3">Add Scope</button>
+            @if (isSaved)
+            {
+                <p class="alert alert-success mt-3">Scope created successfully!</p>
+            }
+            else if (hasValidationErrors)
+            {
+                <p class="alert alert-danger mt-3">Please fill in all required fields and select a resource.</p>
+            }
+        </div>
+    </div>
+
+    @if (scopes == null)
+    {
+        <p>Loading scopes...</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle shadow-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Scope</th>
+                        <th>Price Modifier</th>
+                        <th>Resource</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var scope in scopes)
+                    {
+                        <tr>
+                            <td>
+                                <input type="text" @bind="scope.Text" class="form-control" placeholder="Scope text" />
+                            </td>
+                            <td>
+                                <input type="number" @bind="scope.PriceModifier" class="form-control" placeholder="Price Modifier" />
+                            </td>
+                            <td>
+                                <select class="form-select" @bind="scope.ResourceId">
+                                    <option value="">Select Resource</option>
+                                    @if (resources != null)
+                                    {
+                                        @foreach (var resource in resources)
+                                        {
+                                            <option value="@resource.Id">@resource.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <button @onclick="() => UpdateScope(scope)" class="btn btn-success btn-sm me-2">Save</button>
+                                <button @onclick="() => DeleteScope(scope.Id)" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<style>
+    /* Page layout and container */
+    .container {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    /* Card and table shadows for improved visuals */
+    .card, .table {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    /* Form styling */
+    .form-control, .form-select {
+        font-size: 0.95rem;
+        padding: 0.6rem;
+        border-radius: 0.25rem;
+    }
+
+    /* Table styling */
+    .table th, .table td {
+        padding: 0.75rem;
+        text-align: left;
+    }
+
+    /* Button styling */
+    .btn {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    /* Table hover effects */
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+</style>
+
+@code {
+    private List<ResourceDTO> resources = new List<ResourceDTO>();
+    private List<ScopeDTO> scopes = new List<ScopeDTO>();
+    private Dictionary<int, string> resourceNames = new Dictionary<int, string>();
+    private string scopeText = string.Empty;
+    private decimal priceModifier = 0;
+    private int? selectedResourceId;
+    private bool isSaved = false;
+    private bool hasValidationErrors = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadScopesAndResources();
+    }
+
+    private async Task LoadScopesAndResources()
+    {
+        scopes = await ScopeService.GetScopesAsync() ?? new List<ScopeDTO>();
+        resources = await ResourceService.GetResourcesAsync() ?? new List<ResourceDTO>();
+        resourceNames = resources.ToDictionary(r => r.Id, r => r.Name);
+    }
+
+    private async Task SaveScope()
+    {
+        if (string.IsNullOrWhiteSpace(scopeText) || selectedResourceId == null || priceModifier == 0)
+        {
+            hasValidationErrors = true;
+            isSaved = false;
+            return;
+        }
+
+        var newScope = new ScopeDTO
+            {
+                Text = scopeText,
+                ResourceId = selectedResourceId.Value,
+                PriceModifier = priceModifier
+            };
+
+        await ScopeService.CreateScopeAsync(newScope);
+        isSaved = true;
+        hasValidationErrors = false;
+
+        scopes.Add(newScope);
+
+        scopeText = string.Empty;
+        priceModifier = 0;
+        selectedResourceId = null;
+
+        await Task.Delay(2000);
+        isSaved = false;
+    }
+
+    private async Task UpdateScope(ScopeDTO scope)
+    {
+        await ScopeService.UpdateScopeAsync(scope);
+        await LoadScopesAndResources();
+    }
+
+    private async Task DeleteScope(int scopeId)
+    {
+        await ScopeService.DeleteScopeAsync(scopeId);
+        await LoadScopesAndResources();
+    }
+}

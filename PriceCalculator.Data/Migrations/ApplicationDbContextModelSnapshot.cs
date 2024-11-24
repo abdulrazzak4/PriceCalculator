@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PriceCalculator.App.Data;
+using PriceCalculator.Data.Data;
 
 #nullable disable
 
-namespace PriceCalculator.App.Migrations
+namespace PriceCalculator.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -21,6 +21,44 @@ namespace PriceCalculator.App.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("PriceCalculator.Data.Model.Discount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("MaxQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Discounts");
+                });
+
+            modelBuilder.Entity("PriceCalculator.Data.Model.DiscountResource", b =>
+                {
+                    b.Property<int>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResourceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DiscountId", "ResourceId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("DiscountResources");
+                });
+
             modelBuilder.Entity("PriceCalculator.Data.Model.MSPTier", b =>
                 {
                     b.Property<int>("Id")
@@ -28,6 +66,9 @@ namespace PriceCalculator.App.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FloorPrice")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -42,7 +83,7 @@ namespace PriceCalculator.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MSPTiers", (string)null);
+                    b.ToTable("MSPTiers");
                 });
 
             modelBuilder.Entity("PriceCalculator.Data.Model.Resource", b =>
@@ -63,7 +104,75 @@ namespace PriceCalculator.App.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resources", (string)null);
+                    b.ToTable("Resources");
+                });
+
+            modelBuilder.Entity("PriceCalculator.Data.Model.Scope", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("PriceModifier")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ResourceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("Scopes");
+                });
+
+            modelBuilder.Entity("PriceCalculator.Data.Model.DiscountResource", b =>
+                {
+                    b.HasOne("PriceCalculator.Data.Model.Discount", "Discount")
+                        .WithMany("DiscountResources")
+                        .HasForeignKey("DiscountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PriceCalculator.Data.Model.Resource", "Resource")
+                        .WithMany("DiscountResources")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Discount");
+
+                    b.Navigation("Resource");
+                });
+
+            modelBuilder.Entity("PriceCalculator.Data.Model.Scope", b =>
+                {
+                    b.HasOne("PriceCalculator.Data.Model.Resource", "Resource")
+                        .WithMany("Scopes")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resource");
+                });
+
+            modelBuilder.Entity("PriceCalculator.Data.Model.Discount", b =>
+                {
+                    b.Navigation("DiscountResources");
+                });
+
+            modelBuilder.Entity("PriceCalculator.Data.Model.Resource", b =>
+                {
+                    b.Navigation("DiscountResources");
+
+                    b.Navigation("Scopes");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PriceCalculator.App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e30711119571982f8bf07374ca5209b458b262a5")]
 [assembly: System.Reflection.AssemblyProductAttribute("PriceCalculator.App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PriceCalculator.App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,3 @@
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.App\obj\Release\net8.0\browser-wasm\PubTmp\Out\appsettings.Development.json
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.App\obj\Release\net8.0\browser-wasm\PubTmp\Out\appsettings.json
+C:\Users\ABD\Desktop\dotnet pro\PriceCalculator-sql\PriceCalculator\PriceCalculator.App\obj\Release\net8.0\browser-wasm\PubTmp\Out\web.config

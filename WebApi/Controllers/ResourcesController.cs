@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PriceCalculator.App.Data;
-using PriceCalculator.App.Interfaces;
-using PriceCalculator.App.Model;
+using PriceCalculator.Data.Interfaces;
+using PriceCalculator.Data.Model;
 
 namespace PriceCalculator.Api.Controllers
 {
@@ -19,14 +13,14 @@ namespace PriceCalculator.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Resource>> GetResources()
         {
-            return await unitOfWork.Resources.GetAllAsync();
+            return await unitOfWork.Resources.GetAllAsync(includeProperties: "Scopes");
         }
 
         // GET: api/Resources/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Resource>> GetResource(int id)
         {
-            var resource = await unitOfWork.Resources.GetAsync(i=> i.Id==id);
+            var resource = await unitOfWork.Resources.GetAsync(i=> i.Id==id, "Scopes");
 
             if (resource == null)
             {

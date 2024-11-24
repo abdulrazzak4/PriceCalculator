@@ -1,8 +1,8 @@
-﻿using PriceCalculator.App.Data;
-using PriceCalculator.App.Model;
-using PriceCalculator.App.Interfaces;
+﻿using PriceCalculator.Data.Data;
+using PriceCalculator.Data.Model;
+using PriceCalculator.Data.Interfaces;
 
-namespace PriceCalculator.App.Repositories
+namespace PriceCalculator.Data.Repositories
 {
     public class MSPTierRepository(ApplicationDbContext db): Repository<MSPTier>(db) , IMSPTierRepository
     {

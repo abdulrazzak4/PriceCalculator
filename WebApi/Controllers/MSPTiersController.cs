@@ -1,30 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Humanizer.Localisation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PriceCalculator.Api.Services;
-using PriceCalculator.App.Data;
-using PriceCalculator.App.Interfaces;
-using PriceCalculator.App.Model;
+using PriceCalculator.Data.Interfaces;
 using PriceCalculator.Data.Model;
 
 namespace PriceCalculator.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MSPTiersController(IUnitOfWork unitOfWork, PriceCalculationService priceCalculation) : ControllerBase
+    public class MSPTiersController(IUnitOfWork unitOfWork) : ControllerBase
     {
-        [HttpPost("CalculatePrice")]
-        public async Task<ActionResult<decimal>> CalculateTotalPrice([FromBody] PriceCalculationRequest request)
-        {
-            var totalPrice = await priceCalculation.CalculatePricesAsync(request);
-
-            return Ok(totalPrice);
-        }
+        
 
         [HttpGet]
         public async Task<IEnumerable<MSPTier>> GetMSPTiers()
